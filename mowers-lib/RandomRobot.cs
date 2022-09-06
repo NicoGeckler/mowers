@@ -1,4 +1,4 @@
-namespace Mowers;
+namespace Mowers.Robots;
 
 public sealed class RandomRobot : IRobot
 {

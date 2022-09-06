@@ -37,6 +37,8 @@ dotnet_diagnostic.CA2215.severity = warning
 dotnet_diagnostic.IDE0160.severity = none
 # this on Methods
 dotnet_diagnostic.IDE0003.severity = none
+# Block for Operatoren
+dotnet_diagnostic.IDE0024.severity = none
 # Block for Methods
 dotnet_diagnostic.IDE0022.severity = none
 # Block for Constructors
