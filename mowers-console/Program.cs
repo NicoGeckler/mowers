@@ -1,8 +1,12 @@
 ﻿using System.Text;
+
 using Mowers;
 using Mowers.Robots;
 
-Lawn lawn = new();
+const int LAWN_WIDTH = 40;
+const int LAWN_HEIGHT = 25;
+
+Lawn lawn = new(LAWN_WIDTH, LAWN_HEIGHT);
 
 StringBuilder buffer = new(lawn.Height * (lawn.Width + 1));
 _ = buffer.Append("\x1b[?1049h") // use alternate screen-buffer
@@ -11,10 +15,10 @@ _ = buffer.Append("\x1b[?1049h") // use alternate screen-buffer
     .Append("\x1b[?25l") // hide cursor
 ;
 
-lawn.AddRobot(new RandomRobot());
-lawn.AddRobot(new RandomRobot());
 lawn.AddRobot(new LineRobot());
 lawn.AddRobot(new LineRobot());
+lawn.AddRobot(new LineRobot());
+lawn.AddRobot(new CustomizableRobot() { MoveAction = CustomMove });
 
 bool isLawnInited = false;
 
@@ -68,3 +72,15 @@ static ReadOnlySpan<char> MapCell(Cell cell) => cell switch
     Cell.ForbiddenMown => "x",
     _ => throw new InvalidOperationException(),
 };
+
+static void CustomMove(Dictionary<int, object> data, ref int row, ref int col, CustomizableRobot.Neighbors cells)
+{
+    if (row > 1)
+    {
+        row--;
+    }
+    else if (col > 1)
+    {
+        col--;
+    }
+}

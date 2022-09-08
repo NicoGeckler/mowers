@@ -33,6 +33,8 @@ dotnet_diagnostic.CA2213.severity = warning
 # CA2215: Dispose methods should call base class dispose
 dotnet_diagnostic.CA2215.severity = warning
 
+# namespaces match folders
+dotnet_diagnostic.IDE0130.severity = none
 # Block level namespaces
 dotnet_diagnostic.IDE0160.severity = none
 # this on Methods

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mowers", "mowers-lib\Mowers.csproj", "{9AD0FDED-FA7A-4FF4-9F52-078A7E639AD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mowers.Robots", "mowers-robots\Mowers.Robots.csproj", "{127E4BAD-8C6A-4541-B322-B58E50BE34FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mowers.Console", "mowers-console\Mowers.Console.csproj", "{603EFAD7-860A-4B2F-81AB-4DA4502C46ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AD0FDED-FA7A-4FF4-9F52-078A7E639AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AD0FDED-FA7A-4FF4-9F52-078A7E639AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AD0FDED-FA7A-4FF4-9F52-078A7E639AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AD0FDED-FA7A-4FF4-9F52-078A7E639AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{127E4BAD-8C6A-4541-B322-B58E50BE34FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127E4BAD-8C6A-4541-B322-B58E50BE34FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127E4BAD-8C6A-4541-B322-B58E50BE34FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127E4BAD-8C6A-4541-B322-B58E50BE34FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603EFAD7-860A-4B2F-81AB-4DA4502C46ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603EFAD7-860A-4B2F-81AB-4DA4502C46ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603EFAD7-860A-4B2F-81AB-4DA4502C46ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603EFAD7-860A-4B2F-81AB-4DA4502C46ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
