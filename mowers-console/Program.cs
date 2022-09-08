@@ -50,7 +50,7 @@ do
     _ = buffer.Append("\x1b[1;1H"); // set cursor position to 1/1
     Console.Write(buffer);
     _ = buffer.Clear();
-    lawn.Step();
+    lawn.MoveRobots();
 
     Thread.Sleep(200);
 }

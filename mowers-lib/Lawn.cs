@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Mowers;
 
-public sealed class Lawn
+public sealed class Lawn : ILawn
 {
     private const int DEFAULT_WIDTH = 40;
     private const int DEFAULT_HEIGHT = 25;
@@ -17,7 +17,7 @@ public sealed class Lawn
     public int Width => this.cells.GetLength(1);
     public int Height => this.cells.GetLength(0);
     public IEnumerable<(int row, int col)> Robots => this.robots.Where(r => r.Active).Select(r => (r.Logic.Row, r.Logic.Column));
-    public Lawn.RowEnumerator CellRows => new(this.cells);
+    public RowEnumerator CellRows => new(this.cells);
 
     public Lawn(int width = DEFAULT_WIDTH, int height = DEFAULT_HEIGHT)
     {
@@ -100,7 +100,7 @@ public sealed class Lawn
         return robotsPlaced;
     }
 
-    public void Step()
+    public void MoveRobots()
     {
         foreach (Robot robot in this.robots)
         {
@@ -205,29 +205,4 @@ public sealed class Lawn
     }
 
     private record struct Block(int Left, int Top, int Right, int Bottom);
-
-    public ref struct RowEnumerator
-    {
-        private readonly Cell[,] cells;
-        private int row;
-
-        internal RowEnumerator(Cell[,] target)
-        {
-            this.cells = target;
-            this.row = -1;
-        }
-
-        public ReadOnlySpan<Cell> Current => MemoryMarshal.CreateReadOnlySpan(ref this.cells[this.row, 0], this.cells.GetLength(1));
-
-        public bool MoveNext()
-        {
-            unchecked
-            {
-                this.row++;
-                return (uint)this.row < (uint)this.cells.GetLength(0);
-            }
-        }
-
-        public RowEnumerator GetEnumerator() => this;
-    }
 }
