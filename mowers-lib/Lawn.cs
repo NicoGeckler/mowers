@@ -49,6 +49,11 @@ public sealed class Lawn : ILawn
         return true;
     }
 
+    public bool RemoveRobot(IRobot robot)
+    {
+        return this.robots.RemoveAll(r => r.Logic == robot) > 0;
+    }
+
     public int InitLawn(int blockCount = DEFAULT_BLOCK_COUNT)
     {
         if (blockCount < 0)
