@@ -107,14 +107,19 @@ public sealed class Lawn : ILawn
 
     public void MoveRobots()
     {
-        foreach (Robot robot in this.robots)
+        foreach (ref Robot robot in CollectionsMarshal.AsSpan(this.robots)) // NOTE: DO NOT MODIFY `this.robots` IN THIS LOOP
         {
             if (robot.Active is false)
             {
                 continue;
             }
 
-            // FIX: be robust against malicious robots (that set col/row out of bounds)
+            if ((uint)robot.Logic.Row >= (uint)this.Height || (uint)robot.Logic.Column >= (uint)this.Width)
+            {
+                // out-of-bounds: deactivate and skip
+                robot.Active = false;
+                continue;
+            }
 
             ref Cell cell = ref this.cells[robot.Logic.Row, robot.Logic.Column];
             cell = cell is Cell.ForbiddenRobot ? Cell.ForbiddenMown : Cell.Mown;
@@ -126,9 +131,17 @@ public sealed class Lawn : ILawn
                 left: Get(robot.Logic.Row, robot.Logic.Column - 1).NullableValue ?? Cell.Forbidden
             );
 
+            if ((uint)robot.Logic.Row >= (uint)this.Height || (uint)robot.Logic.Column >= (uint)this.Width)
+            {
+                // out-of-bounds: deactivate and skip
+                robot.Active = false;
+                continue;
+            }
+
             cell = ref this.cells[robot.Logic.Row, robot.Logic.Column];
-            cell = cell is Cell.Forbidden ? Cell.ForbiddenRobot : Cell.Robot;
+            cell = cell is Cell.Forbidden or Cell.ForbiddenMown or Cell.ForbiddenRobot ? Cell.ForbiddenRobot : Cell.Robot;
         }
+
         ValidateRobots();
     }
 
