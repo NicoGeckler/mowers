@@ -11,7 +11,7 @@ const int SLEEP_DURATION = 200;
 
 Lawn lawn = new(LAWN_WIDTH, LAWN_HEIGHT);
 
-StringBuilder buffer = new(lawn.Height * (lawn.Width + 1) * 4);
+StringBuilder buffer = new(lawn.Height * (lawn.Width + 1) * 10);
 _ = buffer.Append("\x1b[?1049h") // use alternate screen-buffer
     .Append("\x1b[2J") // clear screen
     .Append("\x1b[1;1H") // set cursor position to 1/1
@@ -72,7 +72,7 @@ do
 while (k.Key is not ConsoleKey.Escape);
 
 _ = buffer.Clear()
-    .Append("\x1b[0m") // restore text format
+    .Append("\x1b[0m") // restore text format/color
     .Append("\x1b[?25h") // restore cursor
     .Append("\x1b[?1049l") // restore main screen-buffer
 ;
@@ -80,12 +80,12 @@ Console.Write(buffer);
 
 static ReadOnlySpan<char> MapCell(Cell cell) => cell switch
 {
-    Cell.Unmown => "\x1b[32m;",                     // green ;
-    Cell.Mown => "\x1b[1;32m.\x1b[22m",             // bright green . un-bright
-    Cell.Forbidden => "\x1b[31mX",                  // red X
-    Cell.Robot => "\x1b[34mO",                      // blue O
-    Cell.ForbiddenRobot => "\x1b[5m!",              // magenta !
-    Cell.ForbiddenMown => "\x1b[1;31m~\x1b[22m",    // bright red ~ un-bright
+    Cell.Unmown => "\x1b[30;42m;",            // black-fg green-bg ;
+    Cell.Mown => "\x1b[30;102m.",             // black-fg bright-green-bg .
+    Cell.Forbidden => "\x1b[30;41mX",         // black-fg red-bg X
+    Cell.Robot => "\x1b[97;44mO",             // bright-white-fg blue-bg O
+    Cell.ForbiddenRobot => "\x1b[97;105m!",   // bright-white-fg bright-magenta-bg !
+    Cell.ForbiddenMown => "\x1b[30;101m~",    // black-fg bright-red-bg ~
     _ => throw new InvalidOperationException(),
 };
 
