@@ -1,7 +1,8 @@
-using System.Text;
+﻿using System.Text;
 
 using Mowers;
 using Mowers.Robots;
+using CustomMower;
 
 const int LAWN_WIDTH = 40;
 const int LAWN_HEIGHT = 25;
@@ -20,8 +21,8 @@ _ = buffer.Append("\x1b[?1049h") // use alternate screen-buffer
 
 lawn.AddRobot(new LineRobot());
 lawn.AddRobot(new LineRobot());
-lawn.AddRobot(new LineRobot());
-lawn.AddRobot(new CustomizableRobot() { MoveAction = CustomMove });
+lawn.AddRobot(new CustomizableRobot() { MoveAction = Customize.RandomizeStrategy });
+lawn.AddRobot(new CustomizableRobot() { MoveAction = Customize.RandomizeStrategy });
 
 bool isLawnInited = false;
 bool isPaused = false;
@@ -88,15 +89,3 @@ static ReadOnlySpan<char> MapCell(Cell cell) => cell switch
     Cell.ForbiddenMown => "\x1b[30;101m~",    // black-fg bright-red-bg ~
     _ => throw new InvalidOperationException(),
 };
-
-static void CustomMove(Dictionary<int, object> data, ref int row, ref int col, CustomizableRobot.Neighbors cells)
-{
-    if (Random.Shared.NextDouble() >= 0.5)
-    {
-        row++;
-    }
-    else
-    {
-        col++;
-    }
-}
