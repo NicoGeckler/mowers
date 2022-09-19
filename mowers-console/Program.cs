@@ -8,7 +8,7 @@ const int LAWN_WIDTH = 40;
 const int LAWN_HEIGHT = 25;
 const int SLEEP_DURATION = 200;
 
-// FIX: Windows-Terminal entire terminal blinking when robot leaves (test cmd)
+// BUG: Windows-Terminal: entire terminal blinking when robot leaves
 
 Lawn lawn = new(LAWN_WIDTH, LAWN_HEIGHT);
 
