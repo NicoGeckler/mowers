@@ -5,3 +5,9 @@ global using global::System.Linq;
 global using global::System.Net.Http;
 global using global::System.Threading;
 global using global::System.Threading.Tasks;
+
+global using Mowers;
+global using Mowers.Robots;
+
+global using MoveAction = Mowers.Robots.CustomizableRobot.CustomMoveAction;
+global using Neighbors = Mowers.Robots.Neighbors;

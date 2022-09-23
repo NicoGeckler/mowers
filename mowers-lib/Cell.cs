@@ -2,11 +2,11 @@ namespace Mowers;
 
 public enum Cell : byte
 {
-    Unmown,
-    Mown,
-    Forbidden,
-    Robot,
+    Unmown = 0,
+    Mown = 1,
+    Forbidden = 2,
+    Robot = 4,
 
-    ForbiddenRobot,
-    ForbiddenMown,
+    ForbiddenMown = Forbidden | Mown,
+    ForbiddenRobot = Forbidden | Robot,
 }

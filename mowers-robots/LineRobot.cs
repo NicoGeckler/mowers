@@ -8,14 +8,6 @@ public sealed class LineRobot : IRobot
 
     public int Row { get; private set; }
 
-    private enum Direction : byte
-    {
-        None,
-        Up,
-        Left,
-        Down,
-        Right
-    }
     private Direction lastDir = Direction.None;
 
     private bool TryMoveToward(Cell target, Neighbors neighbors)
@@ -42,26 +34,11 @@ public sealed class LineRobot : IRobot
 
         if (count > 0)
         {
-            this.lastDir = PickDirection(available[..count]);
+            this.lastDir = available[..count].PickRandom();
             MoveInLine();
             return true;
         }
         return false;
-    }
-
-    private static bool IsWalkable(Direction dir, Neighbors neighbors) => dir switch
-    {
-        Direction.None => true,
-        Direction.Up => neighbors.Above is Cell.Mown or Cell.Unmown,
-        Direction.Right => neighbors.Right is Cell.Mown or Cell.Unmown,
-        Direction.Down => neighbors.Below is Cell.Mown or Cell.Unmown,
-        Direction.Left => neighbors.Left is Cell.Mown or Cell.Unmown,
-        _ => throw new InvalidOperationException(),
-    };
-
-    private static Direction PickDirection(ReadOnlySpan<Direction> availableDirections)
-    {
-        return availableDirections[Random.Shared.Next(availableDirections.Length)];
     }
 
     private void MoveInLine()
@@ -114,7 +91,7 @@ public sealed class LineRobot : IRobot
                     }
 
                     if (this.lastDir is not Direction.None
-                        && IsWalkable(this.lastDir, neighbors)
+                        && this.lastDir.IsWalkable(neighbors)
                         && Random.Shared.NextDouble() <= KEEP_WALKING_FORWARD_CHANCE)
                     {
                         MoveInLine();
@@ -138,6 +115,4 @@ public sealed class LineRobot : IRobot
         this.Row = initialRow;
         this.lastDir = Direction.None;
     }
-
-    private readonly record struct Neighbors(Cell Above, Cell Right, Cell Below, Cell Left);
 }

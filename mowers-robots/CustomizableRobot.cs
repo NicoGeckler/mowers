@@ -27,5 +27,4 @@ public sealed class CustomizableRobot : IRobot
     private readonly Dictionary<int, object> data = new();
 
     public delegate void CustomMoveAction(Dictionary<int, object> data, ref int row, ref int col, Neighbors cells);
-    public readonly record struct Neighbors(Cell Above, Cell Right, Cell Below, Cell Left);
 }
