@@ -19,8 +19,8 @@ _ = buffer.Append("\x1b[?1049h") // use alternate screen-buffer
     .Append("\x1b[?25l") // hide cursor
 ;
 
-lawn.AddRobot(new LineRobot());
-lawn.AddRobot(new LineRobot());
+lawn.AddRobot(new CustomizableRobot() { MoveAction = Customize.RandomizeStrategy });
+lawn.AddRobot(new CustomizableRobot() { MoveAction = Customize.RandomizeStrategy });
 lawn.AddRobot(new CustomizableRobot() { MoveAction = Customize.RandomizeStrategy });
 lawn.AddRobot(new CustomizableRobot() { MoveAction = Customize.RandomizeStrategy });
 
@@ -30,6 +30,7 @@ bool isPaused = false;
 ConsoleKeyInfo k = default;
 do
 {
+#if !NO_INPUT
     if (Console.KeyAvailable)
     {
         k = Console.ReadKey(true);
@@ -46,6 +47,7 @@ do
                 break;
         }
     }
+#endif
     if (isLawnInited is false)
     {
         _ = lawn.InitLawn();

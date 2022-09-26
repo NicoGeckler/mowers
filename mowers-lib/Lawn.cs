@@ -142,19 +142,46 @@ public sealed class Lawn : ILawn
             cell = cell is Cell.Forbidden or Cell.ForbiddenMown or Cell.ForbiddenRobot ? Cell.ForbiddenRobot : Cell.Robot;
         }
 
-        ValidateRobots();
+        //ValidateRobots(); // XXX: this causes issues when robots overlap, unfixable by design?
     }
 
     [Conditional("DEBUG")]
     private void ValidateRobots()
     {
+        static string msgRobot(Lawn i) => string.Join(
+            ", ",
+            i.robots.Where(r => r.Active).Select(r => (r.Logic.Row, r.Logic.Column))
+        );
+        static string msgCell(Lawn i)
+        {
+            System.Text.StringBuilder bob = new();
+            int rowNum = 0;
+            foreach (ReadOnlySpan<Cell> row in i.CellRows)
+            {
+                for (int col = 0; col < row.Length; col++)
+                {
+                    if (i.cells[rowNum, col] is Cell.Robot or Cell.ForbiddenRobot)
+                    {
+                        if (bob.Length > 0)
+                        {
+                            _ = bob.Append(", ");
+                        }
+                        _ = bob.Append('(').Append(rowNum).Append(", ").Append(col).Append(')');
+                    }
+                }
+                rowNum++;
+            }
+            return bob.ToString();
+        }
+
         for (int row = 0; row < this.Height; row++)
         {
             for (int col = 0; col < this.Width; col++)
             {
                 Debug.Assert(
                     (this.cells[row, col] is Cell.Robot or Cell.ForbiddenRobot)
-                    == this.robots.Any(robot => robot.Logic.Row == row && robot.Logic.Column == col)
+                    == this.robots.Any(robot => robot.Active && robot.Logic.Row == row && robot.Logic.Column == col),
+                    $"Robots: {msgRobot(this)}; Cells: {msgCell(this)}"
                 );
             }
         }

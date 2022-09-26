@@ -11,7 +11,7 @@
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/mowers-console/bin/Debug/net6.0/Mowers.Console.dll",
-            "args": [],
+            "args": ["-pNO_INPUT="],
             "cwd": "${workspaceFolder}/mowers-console",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
