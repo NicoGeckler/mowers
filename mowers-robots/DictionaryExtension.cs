@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace CustomMower;
+namespace Mowers.Robots.CustomMove;
 
 internal static class DictionaryExtension
 {

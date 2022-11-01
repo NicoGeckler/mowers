@@ -1,9 +1,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace CustomMower;
+using Mowers;
+using Mowers.Robots;
 
-internal static class Customize
+using MoveAction = Mowers.Robots.CustomizableRobot.CustomMoveAction;
+
+namespace Mowers.Robots.CustomMove;
+
+public static class Customize
 {
     private enum Key : int
     {
@@ -41,7 +46,7 @@ internal static class Customize
         }
     }
 
-    internal static void RandomizeStrategy(Dictionary<int, object> data, ref int row, ref int col, Neighbors cells)
+    public static void RandomizeStrategy(Dictionary<int, object> data, ref int row, ref int col, Neighbors cells)
     {
         if (data.TryGetAs((int)Key.Strat, out MoveAction? storedStrat))
         {
